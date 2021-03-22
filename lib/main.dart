@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:weather_app/extension/extension.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -149,7 +150,7 @@ class HomeState extends State<Home> {
                   FaIcon(
                     FontAwesomeIcons.thermometerHalf,
                     size: 18,
-                    color: Colors.red[700],
+                    color: Color(0xffdb562e),
                   ),
                   SizedBox(
                     width: 10,
@@ -171,645 +172,147 @@ class HomeState extends State<Home> {
         SizedBox(
           height: 20,
         ),
-        Column(
-          children: [
-            getCard(data)
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  'Haftanın Diğer Günleri',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                      color: Color(0xff7a7472)),
+                ),
+              ),
+              Expanded(child: getCard(data))
+            ],
+          ),
         ),
       ],
     );
   }
 
   getCard(var data) {
-    var secondDay = data[1];
-    var thirdDay = data[2];
-    var fourthDay = data[3];
-    var fifthDay = data[4];
-    var sixthDay = data[5];
-    var seventhDay = data[6];
-    print(sixthDay);
-    print(seventhDay);
-    return
-      Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: Container(
-              height: 82,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 2,
-                    offset: Offset(
-                      0,
-                      0,
-                    ),
-                  ),
-                ],
+    List days = data;
+    return ListView.builder(
+        itemCount: days.length,
+        itemBuilder: (context, position) {
+          return Column(
+            children: [
+              SizedBox(
+                height: 10,
               ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                              secondDay['date'] + ' - ' + secondDay['day']),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.network(
-                              secondDay['icon'],
-                              placeholderBuilder: (context) =>
-                                  CircularProgressIndicator(),
-                              height: 20.0,
-                            ),
-                            Text(
-                              secondDay['description'].toString().capitalize(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(
-                                secondDay['degree'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(secondDay['night'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(secondDay['humidity']),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              daysCard(days[position]),
+              SizedBox(
+                height: 18,
+              ),
+            ],
+          );
+        });
+  }
+
+  daysCard(day) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0, right: 10),
+      child: Container(
+        height: 82,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26.withOpacity(0.2),
+              blurRadius: 2,
+              spreadRadius: 2,
+              offset: Offset(
+                0,
+                0,
               ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: Container(
-              height: 82,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 2,
-                    offset: Offset(
-                      0,
-                      0,
-                    ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text(day['date'] + ' - ' + day['day']),
                   ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                              thirdDay['date'] + ' - ' + thirdDay['day']),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.network(
-                              thirdDay['icon'],
-                              placeholderBuilder: (context) =>
-                                  CircularProgressIndicator(),
-                              height: 20.0,
-                            ),
-                            Text(
-                              thirdDay['description'].toString().capitalize(),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(
-                                thirdDay['degree'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(thirdDay['night'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(thirdDay['humidity']),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: Container(
-              height: 82,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 2,
-                    offset: Offset(
-                      0,
-                      0,
-                    ),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 30,
+                      SvgPicture.network(
+                        day['icon'],
+                        placeholderBuilder: (context) =>
+                            CircularProgressIndicator(),
+                        height: 20.0,
                       ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                              fourthDay['date'] + ' - ' + fourthDay['day']),
-                        ),
+                      Text(
+                        day['description'].toString().capitalize(),
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.network(
-                              secondDay['icon'],
-                              placeholderBuilder: (context) =>
-                                  CircularProgressIndicator(),
-                              height: 20.0,
-                            ),
-                            Text(
-                              fourthDay['description'].toString().capitalize(),
-                            ),
-                          ],
-                        ),
+                      Icon(
+                        MdiIcons.weatherSunny,
+                        color: Colors.amber,
                       ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(
-                                fourthDay['degree'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(fourthDay['night'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(fourthDay['humidity']),
-                          ],
-                        ),
-                      ),
+                      Text(day['degree'].toString().split('.')[0]),
                     ],
                   ),
-                ],
-              ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        MdiIcons.weatherNight,
+                        color: Color(0xFF0D253F),
+                        size: 20,
+                      ),
+                      Text(day['night'].toString().split('.')[0]),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        MdiIcons.waterPercent,
+                        color: Colors.blue,
+                      ),
+                      Text(day['humidity']),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: Container(
-              height: 82,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 2,
-                    offset: Offset(
-                      0,
-                      0,
-                    ),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                              fifthDay['date'] + ' - ' + fifthDay['day']),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.network(
-                              fifthDay['icon'],
-                              placeholderBuilder: (context) =>
-                                  CircularProgressIndicator(),
-                              height: 20.0,
-                            ),
-                            Text(
-                              fifthDay['description'].toString().capitalize(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(
-                                fifthDay['degree'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(fifthDay['night'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(fifthDay['humidity']),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: Container(
-              height: 82,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 2,
-                    offset: Offset(
-                      0,
-                      0,
-                    ),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                              sixthDay['date'] + ' - ' + sixthDay['day']),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.network(
-                              sixthDay['icon'],
-                              placeholderBuilder: (context) =>
-                                  CircularProgressIndicator(),
-                              height: 20.0,
-                            ),
-                            Text(
-                              sixthDay['description'].toString().capitalize(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(
-                                sixthDay['degree'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(sixthDay['night'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(sixthDay['humidity']),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: Container(
-              height: 82,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 2,
-                    offset: Offset(
-                      0,
-                      0,
-                    ),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                              seventhDay['date'] + ' - ' + seventhDay['day']),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.network(
-                              seventhDay['icon'],
-                              placeholderBuilder: (context) =>
-                                  CircularProgressIndicator(),
-                              height: 20.0,
-                            ),
-                            Text(
-                              seventhDay['description'].toString().capitalize(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(
-                                seventhDay['degree'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(seventhDay['night'].toString().split('.')[0]),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.thermometerHalf,
-                              size: 18,
-                            ),
-                            Text(seventhDay['humidity']),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
+          ],
+        ),
+      ),
+    );
   }
 }
