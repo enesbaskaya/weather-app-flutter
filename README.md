@@ -1,6 +1,11 @@
 # weather_app
 
-A new Flutter application.
+Weather application made with flutter. api provides weather information in istanbul.
+
+## Project
+<img src="assets/ss/1.png" width="200" height="400" />
+<img src="assets/ss/2.png" width="200" height="400" />
+<img src="assets/ss/3.png" width="200" height="400" />
 
 ## Getting Started
 
